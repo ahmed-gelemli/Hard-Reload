@@ -1,0 +1,19 @@
+{
+  "name": "Hard Reload",
+  "description": "This is a Chrome Extension that allows you to hard reload web-page. It will remove the cache for current tab and reload it.",
+  "version": "1.0",
+  "permissions": ["tabs", "browsingData", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["jquery-3.5.1.min.js", "background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "32": "images/refresh.png"
+  },
+  "icons": {
+    "32": "images/refresh.png"
+  },
+  "manifest_version": 2
+
+}
