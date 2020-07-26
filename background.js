@@ -1,14 +1,28 @@
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#3aa757'}, function() {
-    console.log('The color is green.');
-  });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {urlMatches: '.*'},
-      })
-      ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
-  });
+chrome.browserAction.onClicked.addListener(function(tab) {
+  var callback = function () {
+    chrome.tabs.reload();
+  };
+
+  var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+  var oneWeekAgo = (new Date()).getTime() - millisecondsPerWeek;
+
+  chrome.browsingData.remove({
+      "since": oneWeekAgo
+  }, {
+      "appcache": true,
+      "cache": true,
+      "cacheStorage": true,
+      "cookies": false,
+      "downloads": false,
+      "fileSystems": false,
+      "formData": false,
+      "history": false,
+      "indexedDB": false,
+      "localStorage": false,
+      "pluginData": false,
+      "passwords": false,
+      "serviceWorkers": false,
+      "webSQL": false
+  }, callback);
+
 });
